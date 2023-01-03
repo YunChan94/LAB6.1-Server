@@ -1,14 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const app = express();
-const users = [];
+const homeRoutes = require("./routes/home");
 app.use(cors());
 
-app.use("/add-user", (req, res, next) => {
-  users.push(req.user);
-
-  res.send({ users: users });
-});
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/", homeRoutes);
 
 app.listen(5000);
