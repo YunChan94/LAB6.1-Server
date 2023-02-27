@@ -107,13 +107,13 @@ exports.postCart = (req, res, next) => {
 exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   req.user
-    .getCart()
+    .getCart() // dữ liệu trong cart
     .then((cart) => {
-      return cart.getProducts({ where: { id: prodId } });
+      return cart.getProducts({ where: { id: prodId } }); // tìm dữ liệu product có id == prodId --> trả về [products]
     })
     .then((products) => {
-      const product = products[0];
-      return product.cartItem.destroy();
+      const product = products[0]; // giá trị trong array
+      return product.cartItem.destroy(); // --> trả về promise --> xử lý then()
     })
     .then((result) => {
       res.redirect("/cart");
